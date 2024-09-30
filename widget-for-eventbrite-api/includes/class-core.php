@@ -75,10 +75,10 @@ class Core {
         $this->define_public_hooks();
         // set up options
         $options = get_option( 'widget-for-eventbrite-api-settings' );
-        if ( false === $options ) {
+        if ( false === $options || !is_array( $options ) ) {
             $options = Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' );
             add_option( 'widget-for-eventbrite-api-settings', $options );
-        } elseif ( !isset( $options['webhook'] ) ) {
+        } elseif ( !isset( $options['webhook'] ) && is_array( $options ) ) {
             $options['webhook'] = '';
             update_option( 'widget-for-eventbrite-api-settings', $options );
         }

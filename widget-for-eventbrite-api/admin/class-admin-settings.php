@@ -770,7 +770,7 @@ Additional shortcode options are available in the  paid for version<br><br>
         $options = get_option( 'widget-for-eventbrite-api-settings' );
         if ( is_plugin_active( 'elementor/elementor.php' ) ) {
             echo esc_html__( 'Go to your page, in Elementor add the Display Eventbrite widget and select options', 'widget-for-eventbrite-api' );
-        } else {
+        } elseif ( is_array( $options ) ) {
             ?>
             <button class="button button-primary"
                     onclick="wfea_demo_form()"><?php 

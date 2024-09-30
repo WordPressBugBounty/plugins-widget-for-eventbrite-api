@@ -1,3 +1,9 @@
+= 6.1.2 =
+* reset if options corrupt
+
+= 6.1.1 =
+* cater for non array options
+
 = 6.1 =
 * Fix demo link api key
 * Re-engineer EB Webhook Payloads for better host compatability ( Pro Only )

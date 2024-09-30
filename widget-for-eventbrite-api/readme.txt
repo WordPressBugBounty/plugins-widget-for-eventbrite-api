@@ -1,8 +1,8 @@
 === Display Eventbrite Events ===
 Contributors: fullworks
 Tags: eventbrite, widget, events, eventbrite widget, eventbrite shortcode
-Tested up to: 6.6
-Stable tag: 6.1
+Tested up to: 6.6.1
+Stable tag: 6.1.2
 Requires PHP: 7.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
@@ -198,6 +198,12 @@ This plugin does not collect, process or send any website visitor personal data 
 
 == Upgrade Notice ==
 == Changelog ==
+= 6.1.2 =
+* reset if options corrupt
+
+= 6.1.1 =
+* cater for non array options
+
 = 6.1 =
 * Fix demo link api key
 * Re-engineer EB Webhook Payloads for better host compatability ( Pro Only )
