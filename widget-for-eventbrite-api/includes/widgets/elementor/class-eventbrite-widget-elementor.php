@@ -4,6 +4,7 @@ namespace WidgetForEventbriteAPI\Includes\Widgets\Elementor;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use WidgetForEventbriteAPI\Admin\Admin_Settings;
 use WidgetForEventbriteAPI\Includes\Utilities;
 use WidgetForEventbriteAPI\Includes\Widgets\Elementor\Eventbrite_Widget_Elementor_Helpers;
 defined( 'ABSPATH' ) || die;
@@ -277,7 +278,7 @@ class Eventbrite_Widget_Elementor extends Widget_Base {
         $this->add_widget_controls( 'settings', 'free' );
         $this->end_controls_section();
         // End Settings section
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
     }
 
     /**

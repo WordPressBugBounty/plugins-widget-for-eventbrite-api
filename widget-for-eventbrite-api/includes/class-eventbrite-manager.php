@@ -3,6 +3,7 @@
 /** @noinspection ALL */
 namespace WidgetForEventbriteAPI\Includes;
 
+use WidgetForEventbriteAPI\Admin\Admin_Settings;
 use WP_Error;
 use WidgetForEventbriteAPI\Includes\Widgets\Elementor\Eventbrite_Widget_Elementor_Helpers;
 class Eventbrite_Manager {
@@ -227,7 +228,7 @@ class Eventbrite_Manager {
     }
 
     private function process_request( $endpoint, $params, $id ) {
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
         if ( false === $this->token ) {
             if ( !empty( $params['token'] ) || !empty( $options['key'] ) ) {
                 if ( !empty( $params['token'] ) ) {

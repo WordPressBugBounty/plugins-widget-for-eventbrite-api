@@ -272,7 +272,7 @@ class Admin_Settings extends Admin_Pages {
     }
 
     public function meta_box_2() {
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
         if ( !isset( $options['cache_clear'] ) ) {
             $options['cache_clear'] = 0;
         }

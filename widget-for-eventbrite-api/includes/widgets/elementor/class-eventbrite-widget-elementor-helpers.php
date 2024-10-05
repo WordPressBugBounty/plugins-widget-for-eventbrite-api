@@ -2,6 +2,7 @@
 
 namespace WidgetForEventbriteAPI\Includes\Widgets\Elementor;
 
+use WidgetForEventbriteAPI\Admin\Admin_Settings;
 use WidgetForEventbriteAPI\Includes\Eventbrite_Manager;
 use WidgetForEventbriteAPI\Includes\Utilities;
 defined( 'ABSPATH' ) || die;
@@ -313,7 +314,7 @@ class Eventbrite_Widget_Elementor_Helpers {
     }
 
     public function get_default_api_key() {
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
         return ( is_string( $options['key'] ) ? $options['key'] : array_column( $options['key'], 'key' )[0] );
     }
 
@@ -527,7 +528,7 @@ class Eventbrite_Widget_Elementor_Helpers {
      *
      */
     public function get_api_key_options() {
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
         $api_keys = $options['key'];
         if ( is_string( $options['key'] ) ) {
             return array();
@@ -632,7 +633,7 @@ class Eventbrite_Widget_Elementor_Helpers {
                 ) ) . ' ';
             }
         }
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
         if ( empty( $params['api_key'] ) ) {
             if ( is_array( $options['key'] ) && !empty( $options['key'][0] ) ) {
                 $api_key = $this->utilities::map_api_index_to_key( 0, $options['key'] );

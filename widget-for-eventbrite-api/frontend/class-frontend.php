@@ -9,6 +9,7 @@ namespace WidgetForEventbriteAPI\FrontEnd;
 
 use ActionScheduler_Store;
 use stdClass;
+use WidgetForEventbriteAPI\Admin\Admin_Settings;
 use WidgetForEventbriteAPI\Includes\ICS;
 use WidgetForEventbriteAPI\Includes\Template_Loader;
 use WidgetForEventbriteAPI\Includes\Eventbrite_Query;
@@ -376,7 +377,7 @@ class FrontEnd {
     public function enqueue_styles() {
         /**  @var \Freemius $wfea_fs freemius SDK. */
         global $wfea_fs;
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
         if ( !isset( $options['plugin-css'] ) || $options['plugin-css'] ) {
             // need to check not set as older version didn't have this option
             wp_enqueue_style(

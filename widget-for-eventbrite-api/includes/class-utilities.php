@@ -30,6 +30,7 @@ namespace WidgetForEventbriteAPI\Includes;
 use DateTime;
 use DateTimeZone;
 use http\Url;
+use WidgetForEventbriteAPI\Admin\Admin_Settings;
 use WP_Query;
 class Utilities {
     protected static $instance;
@@ -252,14 +253,14 @@ class Utilities {
 
     public static function map_api_index_to_key( $index, $api_keys = array() ) {
         if ( empty( $api_keys ) ) {
-            $options = get_option( 'widget-for-eventbrite-api-settings' );
+            $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
             $api_keys = $options['key'];
         }
         return ( !empty( $api_keys[$index]['key'] ) ? $api_keys[$index]['key'] : $index );
     }
 
     public function get_api_reference_from_key( $key ) {
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
         $api_keys = $options['key'];
         foreach ( $api_keys as $ref => $item ) {
             if ( $item['key'] == $key ) {

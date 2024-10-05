@@ -5,6 +5,7 @@
  */
 namespace WidgetForEventbriteAPI\Includes;
 
+use WidgetForEventbriteAPI\Admin\Admin_Settings;
 class Freemius_Config {
     public function init() {
         /** @var \Freemius $wfea_fs Freemius global object. */
@@ -37,7 +38,7 @@ class Freemius_Config {
                 'is_live'        => true,
             ) );
         }
-        $options = get_option( 'widget-for-eventbrite-api-settings' );
+        $options = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
         if ( empty( $options['key'] ) ) {
             $wfea_fs->add_filter(
                 'connect_url',
