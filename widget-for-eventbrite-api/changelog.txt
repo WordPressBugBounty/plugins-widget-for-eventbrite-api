@@ -1,3 +1,9 @@
+= 6.1.6 =
+* reduce scope of translation functions to avoid conflict with WP bakery
+
+= 6.1.5 =
+* create even more stability of options
+
 = 6.1.4 =
 * create more stability of options
 
