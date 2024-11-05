@@ -3,7 +3,7 @@
         'name' => 'fullworks/widget-for-eventbrite-api',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '19ed428d20a098c8cec53d7cf327e1c97aea38da',
+        'reference' => '88e69f94015ced49ddc2b1d0b3fae6ae82b8e65b',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'alanef/wp_autoloader' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4ba13363175aef597d3f02a563009130dcedb0fb',
+            'reference' => 'ab82c9014dd47efbe72cb3612c2a57715bcb212d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../alanef/wp_autoloader',
             'aliases' => array(
@@ -60,7 +60,7 @@
         'fullworks/widget-for-eventbrite-api' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '19ed428d20a098c8cec53d7cf327e1c97aea38da',
+            'reference' => '88e69f94015ced49ddc2b1d0b3fae6ae82b8e65b',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),

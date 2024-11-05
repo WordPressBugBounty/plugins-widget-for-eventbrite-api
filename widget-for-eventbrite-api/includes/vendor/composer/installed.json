@@ -7,15 +7,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alanef/wp_autoloader.git",
-                "reference": "4ba13363175aef597d3f02a563009130dcedb0fb"
+                "reference": "ab82c9014dd47efbe72cb3612c2a57715bcb212d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alanef/wp_autoloader/zipball/4ba13363175aef597d3f02a563009130dcedb0fb",
-                "reference": "4ba13363175aef597d3f02a563009130dcedb0fb",
+                "url": "https://api.github.com/repos/alanef/wp_autoloader/zipball/ab82c9014dd47efbe72cb3612c2a57715bcb212d",
+                "reference": "ab82c9014dd47efbe72cb3612c2a57715bcb212d",
                 "shasum": ""
             },
-            "time": "2024-07-01T22:26:16+00:00",
+            "time": "2024-10-24T10:54:40+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
