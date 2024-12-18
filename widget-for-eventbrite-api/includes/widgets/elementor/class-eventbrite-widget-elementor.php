@@ -363,6 +363,9 @@ class Eventbrite_Widget_Elementor extends Widget_Base {
         if ( empty( $settings['wfea_api_key'] ) ) {
             $settings['wfea_api_key'] = $widget_helpers->get_default_api_key();
         }
+        if ( empty( $settings['wfea_display_private'] ) ) {
+            $settings['wfea_display_private'] = 'false';
+        }
         $settings = array_filter( $settings, function ( $key ) {
             return strpos( $key, 'wfea_' ) !== false;
         }, ARRAY_FILTER_USE_KEY );

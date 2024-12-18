@@ -1,3 +1,9 @@
+= 6.1.10 =
+* Fix issue with private events and Elementor widget ( Pro Only )
+
+= 6.1.9 =
+* Fix issue with long description modal ( Pro Only )
+
 = 6.1.8 =
 * improve consistency of display of warnings when layout not in the current plan
 
