@@ -2,7 +2,7 @@
 Contributors: fullworks
 Tags: eventbrite, widget, events, eventbrite widget, eventbrite shortcode
 Tested up to: 6.7
-Stable tag: 6.1.10
+Stable tag: 6.1.11
 Requires PHP: 7.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
@@ -198,72 +198,6 @@ This plugin does not collect, process or send any website visitor personal data 
 
 == Upgrade Notice ==
 == Changelog ==
-= 6.1.10 =
-* Fix issue with private events and Elementor widget ( Pro Only )
-
-= 6.1.9 =
-* Fix issue with long description modal ( Pro Only )
-
-= 6.1.8 =
-* improve consistency of display of warnings when layout not in the current plan
-
-= 6.1.7 =
-* update tested 6.7
-* upgrade freemius library
-
-= 6.1.6 =
-* reduce scope of translation functions to avoid conflict with WP bakery
-
-= 6.1.5 =
-* create even more stability of options
-
-= 6.1.4 =
-* create more stability of options
-
-= 6.1.3 =
-* add default arg to get_event_classes__premium_only for backward compatability with custom themes ( Pro Only )
-
-= 6.1.2 =
-* reset if options corrupt
-
-= 6.1.1 =
-* cater for non array options
-
-= 6.1 =
-* Fix demo link api key
-* Re-engineer EB Webhook Payloads for better host compatability ( Pro Only )
-* Improve integration with non Evenbrite events ( Pro Only )
-
-= 6.0.7 =
-* Fix conflict with WooCommerce Booking time picker
-
-= 6.0.6 =
-* Remove redundant option form Elementor and Block for Widget Layout to avoid confusion ( Pro Only )
-
-= 6.0.5 =
-* improve CSS for widget layout for mobile devices and narrow layouts
-* improve compatability of Eventbrite Webhooks to support different host configurations ( Pro Only )
-* fix grid layout with image sizes to take aspect ration of first in grid ( Pro Only )
-
-= 6.0.4 =
-* Fix issue with deprecated build_shortcode method
-
-= 6.0.3 =
-* Fix issue with calendar and status ( Pro Only )
-
-= 6.0.2 =
-* Fix issue with background processing ( Pro Only )
-
-= 6.0.1 =
-* Fix filter_by_attrs and display_private in calendar layouts ( Pro Only )
-
-= 6.0 =
-* Blocks added
-* Deprecated legacy widget removed, use the new blocks instead
-* Add Elementor Widget
-* tickets ( direct to tickets page on EB ) option removed as no longer supported by EventBrite
 
 
-
-
-[Full Change History](https://plugins.trac.wordpress.org/browser/widget-for-eventbrite-api/trunk/changelog.txt)
+[Change Log](https://fullworksplugins.com/docs/display-eventbrite-events-in-wordpress/installation-display-eventbrite-events-in-wordpress/change-log-dee/)
