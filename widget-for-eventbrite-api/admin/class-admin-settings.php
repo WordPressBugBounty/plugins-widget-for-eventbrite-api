@@ -42,8 +42,8 @@ class Admin_Settings extends Admin_Pages {
                     'plugin-css'     => 1,
                     'background_api' => 0,
                     'key'            => array(array(
-                        'key' => '',
-                        'label',
+                        'key'   => '',
+                        'label' => 'API Key 1',
                     )),
                     'webhook'        => '',
                     'account_type'   => 'standard',
@@ -232,11 +232,16 @@ class Admin_Settings extends Admin_Pages {
 
                 <div id="demo-action">
                     <p><?php 
-        esc_html_e( 'In the post or page editor is a block for the Eventbrite layouts, add the block and adjust the options to see the results.' );
+        esc_html_e( 'In the post or page editor is a block for the Eventbrite layouts, add the block and adjust the options to see the results.', 'widget-for-eventbrite-api' );
         ?></p>
                     <p><?php 
-        esc_html_e( 'You can also use a Shortcode if preferred.' );
+        esc_html_e( 'You can also use a Shortcode if preferred.', 'widget-for-eventbrite-api' );
         ?></p>
+                </div>
+
+            </div>
+        </div>;
+						?></p>
                 </div>
 
             </div>
@@ -442,7 +447,7 @@ Additional shortcode options are available in the  paid for version<br><br>
         ) );
         $api_keys = ( is_string( $options['key'] ) ? array(array(
             'key'   => $options['key'],
-            'label' => __( 'API Key 1' ),
+            'label' => __( 'API Key 1', 'widget-for-eventbrite-api' ),
         )) : $options['key'] );
         $account_type = ( isset( $options['account_type'] ) ? $options['account_type'] : 'standard' );
         ?>

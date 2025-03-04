@@ -292,7 +292,7 @@ class Admin_Setup_Wizard {
 		//check nonce ajax
 		check_ajax_referer( 'wfea_api_key', 'nonce' );
 		$options        = get_option( 'widget-for-eventbrite-api-settings', Admin_Settings::option_defaults( 'widget-for-eventbrite-api-settings' ) );
-		$options['key'] = ( isset( $_POST['apikey'] ) ) ? sanitize_text_field( wp_unslash( $_POST['apikey'] ) ) : '';
+		$options['key'][0]['key'] = ( isset( $_POST['apikey'] ) ) ? sanitize_text_field( wp_unslash( $_POST['apikey'] ) ) : '';
 		update_option( 'widget-for-eventbrite-api-settings', $options );
 		echo wp_json_encode( array( 'result' => true ) );
 		die();

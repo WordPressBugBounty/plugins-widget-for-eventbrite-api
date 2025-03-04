@@ -1,3 +1,12 @@
+= 6.2.1 =
+* Fix issue with wizard
+
+= 6.2 =
+* Improve cache handling for long description modal ( Pro only feature )
+
+= 6.1.12 =
+* Pass args to date filters
+
 = 6.1.11 =
 * Update Libraries
 

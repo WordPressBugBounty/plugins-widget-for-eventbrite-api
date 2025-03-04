@@ -207,7 +207,7 @@ class Eventbrite_Widget_Elementor extends Widget_Base {
         $layout_options['description'] = $this->get_upgrade_link( esc_html__( ' to see more layouts. ', 'widget-for-eventbrite-api' ) );
         $this->add_control( 'wfea_layout', $layout_options );
         $this->add_control( 'wfea_widgetwrap', array(
-            'label'        => esc_html__( 'Wrap Div' ),
+            'label'        => esc_html__( 'Wrap Div', 'widget-for-eventbrite-api' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
             'condition'    => array(
                 'wfea_layout' => 'widget',

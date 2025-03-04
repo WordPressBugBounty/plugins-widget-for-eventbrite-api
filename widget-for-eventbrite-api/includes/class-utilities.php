@@ -244,7 +244,7 @@ class Utilities {
                 $error_string = $text->error_description;
             } else {
                 if ( isset( $error_string['response'] ) ) {
-                    $error_string = esc_html__( 'Error code from Eventbrite was' ) . ':' . $error_string['response']['code'] . ' ' . esc_html__( 'Error message' ) . ':' . $error_string['response']['message'];
+                    $error_string = esc_html__( 'Error code from Eventbrite was', 'widget-for-eventbrite-api' ) . ':' . $error_string['response']['code'] . ' ' . esc_html__( 'Error message', 'widget-for-eventbrite-api' ) . ':' . $error_string['response']['message'];
                 }
             }
         }
@@ -504,8 +504,8 @@ class Utilities {
      */
     function get_event_time( $args = false, $exclude_date = false ) {
         // Collect our formats from the admin.
-        $date_format = apply_filters( 'wfea_combined_date_time_date_format', get_option( 'date_format' ) . ', ' );
-        $time_format = apply_filters( 'wfea_combined_date_time_time_format', get_option( 'time_format' ) );
+        $date_format = apply_filters( 'wfea_combined_date_time_date_format', get_option( 'date_format' ) . ', ', $args );
+        $time_format = apply_filters( 'wfea_combined_date_time_time_format', get_option( 'time_format' ), $args );
         if ( true === $exclude_date ) {
             $date_format = '';
         }
@@ -522,13 +522,14 @@ class Utilities {
             _x( '%1$s %3$s %2$s', 'Event date and time. %1$s = start time, %2$s = end time %3$s is a separator', 'eventbrite_api' ),
             esc_html( mysql2date( $combined_format, $this->get_event_start()->local ) ),
             esc_html( $end_time ),
-            ( empty( $end_time ) ? '' : apply_filters( 'wfea_event_time_separator', '-' ) )
+            ( empty( $end_time ) ? '' : apply_filters( 'wfea_event_time_separator', '-', $args ) )
         );
         return apply_filters(
             'wfea_event_time',
             $event_time,
             $this->get_event_start(),
-            $this->get_event_end()
+            $this->get_event_end(),
+            $args
         );
     }
 

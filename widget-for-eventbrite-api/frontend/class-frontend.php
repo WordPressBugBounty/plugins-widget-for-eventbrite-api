@@ -15,6 +15,7 @@ use WidgetForEventbriteAPI\Includes\Template_Loader;
 use WidgetForEventbriteAPI\Includes\Eventbrite_Query;
 use WidgetForEventbriteAPI\Includes\Twig;
 use WidgetForEventbriteAPI\Shortcodes\Shortcodes;
+use WP_Block_Type_Registry;
 class FrontEnd {
     /**
      * The ID of this plugin.
@@ -368,6 +369,7 @@ class FrontEnd {
         );
         wp_localize_script( $this->plugin_name, 'wfea_frontend', array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'wfea_modal_nonce' ),
         ) );
     }
 

@@ -210,7 +210,7 @@ class Admin {
     public function site_status_tests( $tests ) {
         if ( is_plugin_active( WIDGET_FOR_EVENTBRITE_API_PLUGIN_NAME . '/widget-for-eventbrite-api.php' ) ) {
             $tests['direct']['widget-for-eventbrite-api'] = array(
-                'label' => __( 'max allowed packet' ),
+                'label' => __( 'max allowed packet', 'widget-for-eventbrite-api' ),
                 'test'  => array($this, 'database_test'),
             );
         }
@@ -227,10 +227,10 @@ class Admin {
             $size = $results[0]->Value / (1024 * 1024);
         }
         $result = array(
-            'label'       => __( 'max allowed packet is large enough ' ),
+            'label'       => __( 'max allowed packet is large enough ', 'widget-for-eventbrite-api' ),
             'status'      => 'good',
             'badge'       => array(
-                'label' => __( 'Display Eventbrite Events' ),
+                'label' => __( 'Display Eventbrite Events', 'widget-for-eventbrite-api' ),
                 'color' => 'green',
             ),
             'description' => '<p>' . sprintf( 
@@ -243,24 +243,24 @@ class Admin {
         );
         if ( $size < 4 ) {
             $result['status'] = 'recommended';
-            $result['label'] = __( 'max allowed packet is not very large' );
+            $result['label'] = __( 'max allowed packet is not very large', 'widget-for-eventbrite-api' );
             $result['description'] = '<p>' . sprintf( 
                 // translators: placeholder is a number  in meg  e.g  24M
                 esc_html__( 'max allowed packet is not very big, this can impact all sorts of things, including the number of events the plugin can handle. Current setting %sM', 'widget-for-eventbrite-api' ),
                 $size
              ) . '</p>';
-            $result['actions'] .= sprintf( '<p><a target="_blank" href="%s">%s</a></p>', esc_url( 'https://fullworksplugins.com/docs/display-eventbrite-events-in-wordpress/troubleshooting/database-limits-too-small/' ), __( 'Read details here' ) );
+            $result['actions'] .= sprintf( '<p><a target="_blank" href="%s">%s</a></p>', esc_url( 'https://fullworksplugins.com/docs/display-eventbrite-events-in-wordpress/troubleshooting/database-limits-too-small/' ), __( 'Read details here', 'widget-for-eventbrite-api' ) );
             $result['badge']['color'] = 'orange';
         }
         if ( $size < 1.5 ) {
             $result['status'] = 'critical';
-            $result['label'] = __( 'max allowed packet is very small' );
+            $result['label'] = __( 'max allowed packet is very small', 'widget-for-eventbrite-api' );
             $result['description'] = '<p>' . sprintf( 
                 // translators: placeholder is a number  in meg  e.g  24M
                 __( 'max allowed packet is very small, the Display Eventbrite plugin may not be able to handle many events, other WP features may also have issues. Current setting %sM', 'widget-for-eventbrite-api' ),
                 $size
              ) . '</p>';
-            $result['actions'] .= sprintf( '<p><a target="_blank" href="%s">%s</a></p>', esc_url( 'https://fullworksplugins.com/docs/display-eventbrite-events-in-wordpress/troubleshooting/database-limits-too-small/' ), __( 'Read details here' ) );
+            $result['actions'] .= sprintf( '<p><a target="_blank" href="%s">%s</a></p>', esc_url( 'https://fullworksplugins.com/docs/display-eventbrite-events-in-wordpress/troubleshooting/database-limits-too-small/' ), __( 'Read details here', 'widget-for-eventbrite-api' ) );
             $result['badge']['color'] = 'red';
         }
         return $result;

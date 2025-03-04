@@ -139,6 +139,8 @@ class Eventbrite_Query extends WP_Query {
         }
         if ( isset( $this->query_vars['token'] ) && !empty( $this->query_vars['token'] ) ) {
             $params['token'] = $this->query_vars['token'];
+        } elseif ( isset( $this->query_vars['api_key'] ) && !empty( $this->query_vars['api_key'] ) ) {
+            $params['token'] = $this->query_vars['api_key'];
         }
         if ( isset( $this->query_vars['organization_id'] ) && !empty( $this->query_vars['organization_id'] ) ) {
             $params['organization_id'] = $this->query_vars['organization_id'];

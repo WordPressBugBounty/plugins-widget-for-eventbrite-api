@@ -15,7 +15,7 @@ class Widget extends WP_Widget {
     public function __construct() {
         $widget_ops = array(
             'classname'                   => 'widget_eventbrite_events widget',
-            'description'                 => __( 'An advanced widget that allow you to display your Eventbrite events' ),
+            'description'                 => __( 'An advanced widget that allow you to display your Eventbrite events', 'widget-for-eventbrite-api' ),
             'customize_selective_refresh' => true,
             'show_in_rest'                => true,
         );
@@ -26,7 +26,7 @@ class Widget extends WP_Widget {
         $this->utilities = new Utilities();
         parent::__construct(
             'eventbrite-events',
-            __( 'Legacy Widget for Eventbrite (Deprecated)' ),
+            __( 'Legacy Widget for Eventbrite (Deprecated)', 'widget-for-eventbrite-api' ),
             $widget_ops,
             $control_ops
         );
