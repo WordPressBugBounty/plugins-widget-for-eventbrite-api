@@ -52,6 +52,8 @@ class Utilities {
      */
     private $freemius;
 
+    private $event;
+
     /**
      * Utilities constructor.
      */
@@ -72,6 +74,14 @@ class Utilities {
             self::$instance = new self();
         }
         return self::$instance;
+    }
+
+    public function set_event( $event ) {
+        $this->event = $event;
+    }
+
+    public function get_event() {
+        return $this->event;
     }
 
     public static function get_allowed_html() {
@@ -280,7 +290,7 @@ class Utilities {
      * @api
      */
     public function get_booknow_link( $args ) {
-        return $this->format_booknow_link( $args, get_post()->url );
+        return $this->format_booknow_link( $args, $this->get_event()->url );
     }
 
     /**
@@ -299,7 +309,7 @@ class Utilities {
         $cta['text'] = $arg[0];
         $cta['availability_class'] = 'event__available';
         $cta['class'] = ( isset( $arg[1] ) ? $arg[1] : 'book-now__link' );
-        if ( 'completed' == get_post()->status || 'ended' == get_post()->status ) {
+        if ( 'completed' == $this->get_event()->status || 'ended' == $this->get_event()->status ) {
             $cta['availability_class'] = 'event__past';
             if ( $this->get_element( 'past_event_button', $args ) ) {
                 $type = 'event_completed';
@@ -308,7 +318,7 @@ class Utilities {
                 $cta['class'] = ( isset( $arg[1] ) ? $arg[1] : 'past_event__link disabled' );
             }
         }
-        if ( 'started' == get_post()->status ) {
+        if ( 'started' == $this->get_event()->status ) {
             $cta['availability_class'] = 'event__started';
             if ( $this->get_element( 'started_event_button', $args ) ) {
                 $type = 'event_started';
@@ -411,7 +421,7 @@ class Utilities {
     }
 
     public function get_event_attr( $attr ) {
-        return $this->get_value_by_string( get_post(), $attr );
+        return $this->get_value_by_string( $this->get_event(), $attr );
     }
 
     public function get_event_classes( $atts = array() ) {
@@ -427,7 +437,7 @@ class Utilities {
      * @api
      */
     public function get_event_eb_url( $ext = null ) {
-        $post = get_post();
+        $post = $this->get_event();
         return apply_filters( 'wfea_eb_url', $post->url . $ext );
     }
 
@@ -446,7 +456,7 @@ class Utilities {
      * @api
      */
     public function get_event_end() {
-        return apply_filters( 'wfea_eventbrite_event_end', get_post()->end );
+        return apply_filters( 'wfea_eventbrite_event_end', $this->get_event()->end );
     }
 
     /**
@@ -464,7 +474,7 @@ class Utilities {
      * @api
      */
     public function get_event_start() {
-        return apply_filters( 'wfea_eventbrite_event_start', get_post()->start );
+        return apply_filters( 'wfea_eventbrite_event_start', $this->get_event()->start );
     }
 
     /**
@@ -557,7 +567,7 @@ class Utilities {
      * @api
      */
     public function get_original_booknow_link( $args ) {
-        return $this->format_booknow_link( $args, get_post()->eb_url );
+        return $this->format_booknow_link( $args, $this->get_event()->eb_url );
     }
 
     /**

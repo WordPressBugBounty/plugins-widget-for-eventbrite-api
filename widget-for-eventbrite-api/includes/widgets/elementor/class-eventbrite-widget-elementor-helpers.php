@@ -222,7 +222,7 @@ class Eventbrite_Widget_Elementor_Helpers {
         //"{"status_code":400,"error_description":"There are errors with your arguments: organizer_id - Unknown parameter","error":"ARGUMENTS_ERROR"}"
         $events = Eventbrite_Manager::$instance->get_organizations_events( $args, false );
         if ( !is_wp_error( $events ) ) {
-            wp_send_json( wp_list_pluck( $events->events, 'post_title', 'ID' ) );
+            wp_send_json( wp_list_pluck( $events->events ?? array(), 'post_title', 'ID' ) );
         }
         die;
     }
@@ -247,7 +247,7 @@ class Eventbrite_Widget_Elementor_Helpers {
             $args['organization_id'] = sanitize_text_field( wp_unslash( $_POST['organizationID'] ) );
         }
         $events = $this->get_events_list( $args );
-        $events_options = wp_list_pluck( $events, $option_type );
+        $events_options = wp_list_pluck( $events ?? array(), $option_type );
         $dropdown_options = array();
         foreach ( $events_options as $event_option ) {
             if ( !in_array( $event_option->id, $events_options ) ) {
@@ -281,7 +281,7 @@ class Eventbrite_Widget_Elementor_Helpers {
             false,
             false
         );
-        $organizations_list = wp_list_pluck( $response->organizations, 'name', 'id' );
+        $organizations_list = wp_list_pluck( $response->organizations ?? array(), 'name', 'id' );
         $organizations_list = array(
             '' => __( 'Select', 'widget-for-eventbrite-api' ),
         ) + $organizations_list;
@@ -296,7 +296,7 @@ class Eventbrite_Widget_Elementor_Helpers {
             false
         );
         if ( !is_wp_error( $subcats ) ) {
-            return wp_list_pluck( $subcats->subcategories, 'name', 'id' );
+            return wp_list_pluck( $subcats->subcategories ?? array(), 'name', 'id' );
         }
         return array();
     }

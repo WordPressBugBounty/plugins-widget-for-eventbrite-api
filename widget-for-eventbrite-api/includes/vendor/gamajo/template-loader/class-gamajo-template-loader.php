@@ -256,7 +256,7 @@ if ( ! class_exists( 'Gamajo_Template_Loader' ) ) {
 			}
 
 			if ( $load && $located ) {
-				load_template( $located, $require_once );
+				require_once $located;
 			}
 
 			return $located;

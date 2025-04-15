@@ -10,10 +10,13 @@ namespace WidgetForEventbriteAPI\FrontEnd;
 use ActionScheduler_Store;
 use stdClass;
 use WidgetForEventbriteAPI\Admin\Admin_Settings;
+use WidgetForEventbriteAPI\Includes\Compat_Template_Loader;
 use WidgetForEventbriteAPI\Includes\ICS;
 use WidgetForEventbriteAPI\Includes\Template_Loader;
+use WidgetForEventbriteAPI\Includes\Simple_Template_Loader;
 use WidgetForEventbriteAPI\Includes\Eventbrite_Query;
 use WidgetForEventbriteAPI\Includes\Twig;
+use WidgetForEventbriteAPI\Includes\Utilities;
 use WidgetForEventbriteAPI\Shortcodes\Shortcodes;
 use WP_Block_Type_Registry;
 class FrontEnd {
@@ -130,14 +133,15 @@ class FrontEnd {
         } else {
             ob_start();
             $theme = wp_get_theme();
-            $template_loader = new Template_Loader();
+            $template_loader = new Compat_Template_Loader();
+            $p = get_post();
             $template_loader->set_template_data( array(
                 'template_loader' => $template_loader,
                 'events'          => $events,
                 'args'            => $atts,
                 'template'        => strtolower( $theme->template ),
                 'plugin_name'     => $this->plugin_name,
-                'utilities'       => $this->utilities,
+                'utilities'       => new Utilities($p),
                 'unique_id'       => uniqid(),
                 'instance'        => $wfea_instance_counter,
                 'event'           => new stdClass(),

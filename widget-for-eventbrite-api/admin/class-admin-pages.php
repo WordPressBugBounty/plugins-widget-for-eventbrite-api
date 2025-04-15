@@ -180,6 +180,9 @@ class Admin_Pages {
 
 	public function settings_setup() {
 
+		$this->settings_title = esc_html__( 'Display Eventbrite Events Settings', 'widget-for-eventbrite-api' );
+
+
 		/* top level
 				add_menu_page(
 					$this->settings_title, // Page Title

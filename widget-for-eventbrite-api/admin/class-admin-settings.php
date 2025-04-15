@@ -29,7 +29,6 @@ class Admin_Settings extends Admin_Pages {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
         $this->freemius = $freemius;
-        $this->settings_title = esc_html__( 'Display Eventbrite Events Settings', 'widget-for-eventbrite-api' );
         parent::__construct();
     }
 
