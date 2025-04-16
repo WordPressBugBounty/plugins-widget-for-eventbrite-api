@@ -55,6 +55,11 @@ class Utilities {
     private $event;
 
     /**
+     * @var mixed
+     */
+    private $post_obj;
+
+    /**
      * Utilities constructor.
      */
     public function __construct() {
@@ -426,6 +431,87 @@ class Utilities {
 
     public function get_event_classes( $atts = array() ) {
         return esc_attr( apply_filters( 'wfea_event_classes', '' ) );
+    }
+
+    /**
+     * Get the URL to an event's logo.
+     * @filter wfea_event_logo_url<br>
+     * <em>example<em><br>
+     * <pre>add_filter( 'wfea_event_logo_url',
+     *  function( $url ) {
+     *    // your code
+     *   return $url;
+     *  }
+     * );</pre>
+     *
+     * @return string
+     * @api
+     */
+    public function get_event_logo_url() {
+        $logo = $this->get_event()->logo;
+        if ( !empty( $logo ) ) {
+            $url = $logo->url;
+        } else {
+            $url = '';
+        }
+        return apply_filters( 'wfea_event_logo_url', $url );
+    }
+
+    /**
+     * Get the URL to an event's logo original size.
+     * @filter wfea_event_logo_original_url<br>
+     * <em>example<em><br>
+     * <pre>add_filter( 'wfea_event_logo_original_url',
+     * function( $url ) {
+     *   // your code
+     *  return $url;
+     * }
+     * );</pre>
+     * @return mixed|null
+     * @api
+     */
+    public function get_event_logo_original_url() {
+        $logo = $this->get_event()->logo;
+        if ( !empty( $logo ) ) {
+            $url = $logo->original->url;
+        } else {
+            $url = '';
+        }
+        return apply_filters( 'wfea_event_logo_original_url', $url );
+    }
+
+    /**
+     * Get the URL to an event's public viewing page on eventbrite.com.
+     * @filter wfea_event_title<br>
+     * <em>example<em><br>
+     * <pre>add_filter( 'wfea_event_title',
+     *  function( $title ) {
+     *   // your code
+     *  return $title;
+     *  }
+     * );</pre>
+     * @return mixed|null
+     * @api
+     */
+    public function get_event_title() {
+        return apply_filters( 'wfea_event_title', $this->get_event()->post_title );
+    }
+
+    /**
+     * Get the ID of the event
+     * @filter wfea_event_ID<br>
+     * <em>example<em><br>
+     * <pre>add_filter( 'wfea_event_ID',
+     *  function( $id ) {
+     *   // your code
+     * return $id;
+     *  }
+     * );</pre>
+     * @return mixed|null
+     * @api
+     */
+    public function get_event_ID() {
+        return apply_filters( 'wfea_event_ID', $this->get_event()->ID );
     }
 
     /**

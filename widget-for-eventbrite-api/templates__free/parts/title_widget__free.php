@@ -10,8 +10,8 @@
 		$data->event->booknow,
 		sprintf(
                 // translators: placeholder is title attribute
-                esc_attr__( 'Eventbrite link to %1$s', 'widget-for-eventbrite-api' ), the_title_attribute( 'echo=0' ) ),
-		the_title_attribute( 'echo=0' ),
+                esc_attr__( 'Eventbrite link to %1$s', 'widget-for-eventbrite-api' ), the_title_attribute( array( 'echo' => false, 'post' => $data->utilities->get_event() ) ) ),
+		the_title_attribute( array( 'echo' => false, 'post' => $data->utilities->get_event() ) ),
 		( $data->utilities->get_element( 'newtab', $data->args ) ) ? 'target="_blank"' : ''
 	);
 	?>
