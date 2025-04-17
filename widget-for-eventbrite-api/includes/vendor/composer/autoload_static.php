@@ -68,7 +68,6 @@ class ComposerStaticInit72aac7b444feed73f69908750fb12dfb
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Gamajo_Template_Loader' => __DIR__ . '/..' . '/gamajo/template-loader/class-gamajo-template-loader.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

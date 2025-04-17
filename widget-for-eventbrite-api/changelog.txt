@@ -1,5 +1,8 @@
+= 6.2.4 =
+* Fix loop when specifying content=true in shortcode
+
 = 6.2.3 =
-Fix issues from WP6.8 fix
+* Fix issues from WP6.8 fix
 
 = 6.2.2 =
 Fix multiple issues with WP 6.8 compatability
