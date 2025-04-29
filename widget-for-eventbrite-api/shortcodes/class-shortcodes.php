@@ -7,12 +7,7 @@
  */
 namespace WidgetForEventbriteAPI\Shortcodes;
 
-use ActionScheduler_Store;
-use stdClass;
 use WidgetForEventbriteAPI\FrontEnd\FrontEnd;
-use WidgetForEventbriteAPI\Includes\ICS;
-use WidgetForEventbriteAPI\Includes\Template_Loader;
-use WidgetForEventbriteAPI\Includes\Eventbrite_Query;
 class Shortcodes {
     /**
      * The ID of this plugin.

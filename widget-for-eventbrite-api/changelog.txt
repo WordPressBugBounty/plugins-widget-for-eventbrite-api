@@ -1,3 +1,12 @@
+= 6.3 =
+* Implement fast calendar rendering ( Pro only )
+* Fix calendar search for Elementor widgets ( Pro only )
+* Fix calendar search for shortcode renders ( Pro only )
+* Add support for thumb_original in calendar views with lazy loading ( Pro only )
+
+= 6.2.6 =
+* Fix calendar titles ( Pro only )
+
 = 6.2.5 =
 *  Add support-config.json to allow support data to be sent to support
 

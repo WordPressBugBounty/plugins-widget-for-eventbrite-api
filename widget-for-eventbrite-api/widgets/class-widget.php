@@ -6,10 +6,8 @@
 namespace WidgetForEventbriteAPI\Widgets;
 
 use stdClass;
-use WidgetForEventbriteAPI\Includes\Compat_Template_Loader;
-use WidgetForEventbriteAPI\Includes\Eventbrite_Query;
 use WidgetForEventbriteAPI\Includes\Template_Loader;
-use WidgetForEventbriteAPI\Includes\Simple_Template_Loader;
+use WidgetForEventbriteAPI\Includes\Eventbrite_Query;
 use WidgetForEventbriteAPI\Includes\Utilities;
 use WP_Widget;
 use ActionScheduler_Store;
@@ -629,7 +627,7 @@ class Widget extends WP_Widget {
         } else {
             $template = 'layout_widget';
             $theme = wp_get_theme();
-            $template_loader = new Compat_Template_Loader();
+            $template_loader = new Template_Loader();
             $template_loader->set_template_data( array(
                 'template_loader' => $template_loader,
                 'events'          => $events,

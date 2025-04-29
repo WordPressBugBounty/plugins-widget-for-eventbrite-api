@@ -10,10 +10,8 @@ namespace WidgetForEventbriteAPI\FrontEnd;
 use ActionScheduler_Store;
 use stdClass;
 use WidgetForEventbriteAPI\Admin\Admin_Settings;
-use WidgetForEventbriteAPI\Includes\Compat_Template_Loader;
-use WidgetForEventbriteAPI\Includes\ICS;
 use WidgetForEventbriteAPI\Includes\Template_Loader;
-use WidgetForEventbriteAPI\Includes\Simple_Template_Loader;
+use WidgetForEventbriteAPI\Includes\ICS;
 use WidgetForEventbriteAPI\Includes\Eventbrite_Query;
 use WidgetForEventbriteAPI\Includes\Twig;
 use WidgetForEventbriteAPI\Includes\Utilities;
@@ -133,7 +131,7 @@ class FrontEnd {
         } else {
             ob_start();
             $theme = wp_get_theme();
-            $template_loader = new Compat_Template_Loader();
+            $template_loader = new Template_Loader();
             $p = get_post();
             $template_loader->set_template_data( array(
                 'template_loader' => $template_loader,
@@ -177,7 +175,7 @@ class FrontEnd {
         $atts['debug'] = $this->atts_bool( $sc_atts['debug'] );
         $atts['display_private'] = false;
         $atts['excerpt'] = $this->atts_bool( $sc_atts['excerpt'] );
-        $atts['layout'] = sanitize_text_field( $sc_atts['layout'] );
+        $atts['layout'] = preg_replace( '/[^a-zA-Z0-9_-]/', '', sanitize_text_field( $sc_atts['layout'] ) );
         $atts['length'] = (int) $sc_atts['length'];
         $atts['limit'] = (int) $sc_atts['limit'];
         $atts['newtab'] = $this->atts_bool( $sc_atts['newtab'] );

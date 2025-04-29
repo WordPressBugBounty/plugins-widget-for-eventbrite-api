@@ -1,6 +1,56 @@
 {
     "packages": [
         {
+            "name": "alanef/fullworks-template-loader-lib",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alanef/fullworks-template-loader-lib.git",
+                "reference": "af25c1e55f01e55964e60eaab88281a7ee9c7e80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alanef/fullworks-template-loader-lib/zipball/af25c1e55f01e55964e60eaab88281a7ee9c7e80",
+                "reference": "af25c1e55f01e55964e60eaab88281a7ee9c7e80",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.32",
+                "phpunit/phpunit": "^9.0",
+                "wp-phpunit/wp-phpunit": "^6.7",
+                "yoast/wp-test-utils": "^1.2"
+            },
+            "time": "2025-04-27T20:32:07+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Fullworks_Template_Loader_Lib\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "alan",
+                    "email": "alan@fullworks.net"
+                }
+            ],
+            "description": "Library to load templates for plugins",
+            "support": {
+                "issues": "https://github.com/alanef/fullworks-template-loader-lib/issues",
+                "source": "https://github.com/alanef/fullworks-template-loader-lib/tree/master"
+            },
+            "install-path": "../alanef/fullworks-template-loader-lib"
+        },
+        {
             "name": "alanef/wp_autoloader",
             "version": "dev-main",
             "version_normalized": "dev-main",

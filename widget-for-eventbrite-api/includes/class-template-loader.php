@@ -5,15 +5,14 @@
  */
 namespace WidgetForEventbriteAPI\Includes;
 
-use Gamajo_Template_Loader;
-require_once dirname( __FILE__ ) . '/vendor/gamajo/template-loader/class-gamajo-template-loader.php';
+use Fullworks_Template_Loader_Lib\BaseLoader;
 /**
  * Template loader
  *
  * Only need to specify class properties here.
  *
  */
-class Template_Loader extends Gamajo_Template_Loader {
+class Template_Loader extends BaseLoader {
     /**
      * Prefix for filter names.
      *

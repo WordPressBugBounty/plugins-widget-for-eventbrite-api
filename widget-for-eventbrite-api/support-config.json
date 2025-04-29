@@ -10,8 +10,9 @@
   "options_to_extract": [
     {
       "option_name": "widget-for-eventbrite-api-settings",
-      "label": "Main Settings"
-
+      "label": "Main Settings",
+      "sensitive_fields": ["key"],
+      "mask_sensitive": true
     },
     {
       "option_name": "widget-for-eventbrite-api-version",

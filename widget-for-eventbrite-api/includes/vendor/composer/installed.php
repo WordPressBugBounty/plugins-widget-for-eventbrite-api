@@ -3,13 +3,24 @@
         'name' => 'fullworks/widget-for-eventbrite-api',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '932edfff3c41d330a58b813b9f7fb639e18d8666',
+        'reference' => '19efcea2ebc8f190fe46069deb93208569a9e81b',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'alanef/fullworks-template-loader-lib' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'af25c1e55f01e55964e60eaab88281a7ee9c7e80',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../alanef/fullworks-template-loader-lib',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'dev_requirement' => false,
+        ),
         'alanef/wp_autoloader' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
@@ -60,7 +71,7 @@
         'fullworks/widget-for-eventbrite-api' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '932edfff3c41d330a58b813b9f7fb639e18d8666',
+            'reference' => '19efcea2ebc8f190fe46069deb93208569a9e81b',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
