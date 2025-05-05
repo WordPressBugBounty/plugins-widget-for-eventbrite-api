@@ -1,3 +1,6 @@
+= 6.3.1 =
+* Fix issue where calendar sometimes shows no data ( Pro only )
+
 = 6.3 =
 * Implement fast calendar rendering ( Pro only )
 * Fix calendar search for Elementor widgets ( Pro only )

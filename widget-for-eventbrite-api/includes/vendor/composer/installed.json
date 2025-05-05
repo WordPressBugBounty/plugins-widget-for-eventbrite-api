@@ -109,15 +109,15 @@
             "type": "component",
             "extra": {
                 "component": {
-                    "scripts": [
-                        "jquery.js"
-                    ],
                     "files": [
                         "jquery.min.js",
                         "jquery.min.map",
                         "jquery.slim.js",
                         "jquery.slim.min.js",
                         "jquery.slim.min.map"
+                    ],
+                    "scripts": [
+                        "jquery.js"
                     ]
                 }
             },
@@ -371,12 +371,6 @@
             "type": "component",
             "extra": {
                 "component": {
-                    "scripts": [
-                        "dist/fullcalendar.js"
-                    ],
-                    "styles": [
-                        "dist/fullcalendar.css"
-                    ],
                     "files": [
                         "dist/fullcalendar.min.js",
                         "dist/fullcalendar.min.css",
@@ -386,6 +380,12 @@
                         "dist/gcal.min.js",
                         "dist/locale-all.js",
                         "dist/locale/*.js"
+                    ],
+                    "styles": [
+                        "dist/fullcalendar.css"
+                    ],
+                    "scripts": [
+                        "dist/fullcalendar.js"
                     ]
                 }
             },
@@ -521,12 +521,12 @@
             "type": "component",
             "extra": {
                 "component": {
-                    "scripts": [
-                        "moment.js"
-                    ],
                     "files": [
                         "min/*.js",
                         "locale/*.js"
+                    ],
+                    "scripts": [
+                        "moment.js"
                     ]
                 }
             },

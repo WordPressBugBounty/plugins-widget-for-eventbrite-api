@@ -373,6 +373,9 @@ class FrontEnd {
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'nonce'   => wp_create_nonce( 'wfea_modal_nonce' ),
         ) );
+        if ( !WP_DEBUG ) {
+            wp_add_inline_script( $this->plugin_name, 'console.debug = function() {};', 'before' );
+        }
     }
 
     /**

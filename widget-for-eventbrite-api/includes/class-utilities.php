@@ -134,6 +134,24 @@ class Utilities {
                 'class' => true,
                 'value' => true,
             ),
+            'script' => array(
+                'type'    => true,
+                'src'     => true,
+                'charset' => true,
+                'async'   => true,
+                'defer'   => true,
+                'nonce'   => true,
+                'id'      => true,
+                'class'   => true,
+                0         => true,
+            ),
+            'style'  => array(
+                'type'  => true,
+                'id'    => true,
+                'class' => true,
+                'media' => true,
+                0       => true,
+            ),
         ) );
     }
 
