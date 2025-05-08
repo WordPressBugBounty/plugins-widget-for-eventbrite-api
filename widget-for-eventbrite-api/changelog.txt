@@ -1,3 +1,7 @@
+= 6.3.2 =
+* Fix issue in Elementor widget where  image display off is ignored
+* Add 'except' logic  to  tags filter ( Pro only )
+
 = 6.3.1 =
 * Fix issue where calendar sometimes shows no data ( Pro only )
 

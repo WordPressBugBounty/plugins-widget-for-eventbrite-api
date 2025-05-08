@@ -366,6 +366,9 @@ class Eventbrite_Widget_Elementor extends Widget_Base {
         if ( empty( $settings['wfea_display_private'] ) ) {
             $settings['wfea_display_private'] = 'false';
         }
+        if ( empty( $settings['wfea_thumb'] ) ) {
+            $settings['wfea_thumb'] = 'false';
+        }
         $settings = array_filter( $settings, function ( $key ) {
             return strpos( $key, 'wfea_' ) !== false;
         }, ARRAY_FILTER_USE_KEY );

@@ -158,6 +158,7 @@ class Eventbrite_Event {
 
 	public $external_ticketing;
 
+	public $tags;
 
 
 
