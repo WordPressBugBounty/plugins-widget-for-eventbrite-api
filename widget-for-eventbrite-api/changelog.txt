@@ -1,3 +1,6 @@
+= 6.3.3 =
+* cater for upcoming Eventbrite API change
+
 = 6.3.2 =
 * Fix issue in Elementor widget where  image display off is ignored
 * Add 'except' logic  to  tags filter ( Pro only )
