@@ -62,7 +62,7 @@ class Blocks {
             add_filter(
                 'register_block_type_args',
                 function ( $args, $name ) {
-                    if ( 'widget-for-eventbrite-api/display-eventbrite-events' !== $name ) {
+                    if ( 'widget-for-eventbrite-api/display-' !== $name ) {
                         return $args;
                     }
                     $args['script'] = null;

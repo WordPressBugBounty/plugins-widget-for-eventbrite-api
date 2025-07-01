@@ -185,7 +185,10 @@ class Eventbrite_Manager {
             unset($params['page']);
         }
         // Return a cached result if we have one.
-        // $force = true;
+        // if environment variable WFEA_DEV_NOCACHE is defined and true, force API request
+        if ( defined( 'WFEA_DEV_NOCACHE' ) && true === WFEA_DEV_NOCACHE ) {
+            $force = true;
+        }
         $repeat = (int) apply_filters( 'wfea_eventbrite_cache_expiry', DAY_IN_SECONDS );
         if ( $repeat <= 60 || $force ) {
             return $this->process_request( $endpoint, $params, $id );
@@ -350,7 +353,7 @@ class Eventbrite_Manager {
                 $query_params,
                 $object_id
             );
-            $endpoint_url = add_query_arg( $query_params, $endpoint_url );
+            $endpoint_url = $this->safe_add_query_arg( $query_params, $endpoint_url );
         } elseif ( 'organizations' == $endpoint ) {
             $url = explode( '?', esc_url_raw( $endpoint_base ) );
             $endpoint_url = $url[0];
@@ -381,9 +384,11 @@ class Eventbrite_Manager {
                 }
                 if ( isset( $token_response->pagination->has_more_items ) ) {
                     while ( $token_response->pagination->has_more_items ) {
-                        $next_response = $this->request_api( add_query_arg( array(
+                        // Use our safe_add_query_arg method instead of add_query_arg to preserve dot notation
+                        $continuation_url = $this->safe_add_query_arg( array(
                             'continuation' => $token_response->pagination->continuation,
-                        ), $endpoint_url ), array(
+                        ), $endpoint_url );
+                        $next_response = $this->request_api( $continuation_url, array(
                             'token' => $token,
                         ) );
                         if ( !is_wp_error( $next_response ) && !empty( $next_response->events ) && is_array( $next_response->events ) ) {
@@ -473,6 +478,35 @@ class Eventbrite_Manager {
 
     protected function get_cache_transient( $endpoint, $params, $id ) {
         return get_transient( $this->get_transient_name( $endpoint, $params, $id ) );
+    }
+
+    /**
+     * Custom version of add_query_arg that preserves dot notation in parameter names
+     * Safely adds query parameters to a URL without converting dots to underscores
+     *
+     * @param array $params Query parameters to add to the URL
+     * @param string $url The URL to add parameters to
+     * @return string The modified URL with parameters added
+     */
+    protected function safe_add_query_arg( $params, $url ) {
+        // If no parameters or empty URL, return the URL as is
+        if ( empty( $params ) || empty( $url ) ) {
+            return $url;
+        }
+        // Check if URL already has query parameters
+        $separator = ( strpos( $url, '?' ) !== false ? '&' : '?' );
+        // Build query string manually to preserve dot notation
+        $query_parts = array();
+        foreach ( $params as $key => $value ) {
+            if ( $value !== false && $value !== null ) {
+                $query_parts[] = urlencode( $key ) . '=' . urlencode( $value );
+            }
+        }
+        // If we have query parts, add them to the URL
+        if ( !empty( $query_parts ) ) {
+            $url .= $separator . implode( '&', $query_parts );
+        }
+        return $url;
     }
 
     /**

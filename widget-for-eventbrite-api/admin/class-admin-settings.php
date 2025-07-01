@@ -439,15 +439,37 @@ Additional shortcode options are available in the  paid for version<br><br>
     public function meta_box_4() {
         $options = get_option( 'widget-for-eventbrite-api-settings', array(
             'key'     => array(array(
-                'key' => '',
-                'label',
+                'key'   => '',
+                'label' => __( 'API Key 1', 'widget-for-eventbrite-api' ),
             )),
             'webhook' => '',
         ) );
-        $api_keys = ( is_string( $options['key'] ) ? array(array(
-            'key'   => $options['key'],
-            'label' => __( 'API Key 1', 'widget-for-eventbrite-api' ),
-        )) : $options['key'] );
+        // Handle different formats of API key storage
+        if ( !isset( $options['key'] ) || empty( $options['key'] ) ) {
+            // No key set yet
+            $api_keys = array(array(
+                'key'   => '',
+                'label' => __( 'API Key 1', 'widget-for-eventbrite-api' ),
+            ));
+        } elseif ( is_string( $options['key'] ) ) {
+            // Old format: plain string
+            $api_keys = array(array(
+                'key'   => $options['key'],
+                'label' => __( 'API Key 1', 'widget-for-eventbrite-api' ),
+            ));
+        } elseif ( is_array( $options['key'] ) && isset( $options['key']['key'] ) ) {
+            // Single array format (not nested)
+            $api_keys = array($options['key']);
+        } elseif ( is_array( $options['key'] ) && isset( $options['key'][0] ) ) {
+            // New format: array of arrays
+            $api_keys = $options['key'];
+        } else {
+            // Fallback for any other format
+            $api_keys = array(array(
+                'key'   => '',
+                'label' => __( 'API Key 1', 'widget-for-eventbrite-api' ),
+            ));
+        }
         $account_type = ( isset( $options['account_type'] ) ? $options['account_type'] : 'standard' );
         ?>
         <table class="form-table">
@@ -669,7 +691,7 @@ Additional shortcode options are available in the  paid for version<br><br>
         flush_rewrite_rules();
         $options = get_option( 'widget-for-eventbrite-api-settings' );
         if ( isset( $settings['key'] ) ) {
-            if ( empty( $settings['key'] || empty( $options['key'] ) ) ) {
+            if ( empty( $settings['key'] ) || empty( $options['key'] ) ) {
                 add_settings_error(
                     'wfea-api-key',
                     'wfea-api-key',

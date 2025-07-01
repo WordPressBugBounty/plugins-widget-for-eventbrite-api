@@ -2,7 +2,7 @@
 Contributors: fullworks
 Tags: eventbrite, widget, events, eventbrite widget, eventbrite shortcode
 Tested up to: 6.8
-Stable tag: 6.3.3
+Stable tag: 6.3.9
 Requires PHP: 7.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
@@ -197,6 +197,9 @@ Or review a full description of all options in the free and paid for plans. [Fre
 This plugin does not collect, process or send any website visitor personal data anywhere
 
 == Upgrade Notice ==
+= 6.3.9 =
+Critical fix for PHP fatal errors in API key settings page. All users on version 6.3.7 should update immediately.
+
 == Changelog ==
 
 

@@ -91,10 +91,24 @@ class Core {
         if ( !empty( $options ) && is_array( $options ) && !isset( $options['key'] ) ) {
             $key = get_option( 'widget-for-eventbrite-api-settings-api' );
             if ( false !== $key ) {
-                $options['key'] = $key['key'];
+                // Convert old string API key to new array format
+                $options['key'] = array(array(
+                    'key'   => $key['key'],
+                    'label' => 'API Key 1',
+                ));
                 update_option( 'widget-for-eventbrite-api-settings', $options );
                 delete_option( 'widget-for-eventbrite-api-settings-api' );
             }
+        }
+        // Fix for users who already have broken string format from previous migration
+        if ( !empty( $options ) && is_array( $options ) && isset( $options['key'] ) && is_string( $options['key'] ) ) {
+            // Convert string API key to new array format
+            $api_key_value = $options['key'];
+            $options['key'] = array(array(
+                'key'   => $api_key_value,
+                'label' => 'API Key 1',
+            ));
+            update_option( 'widget-for-eventbrite-api-settings', $options );
         }
         $this->define_component_hooks();
         $this->define_endpoints_hooks();

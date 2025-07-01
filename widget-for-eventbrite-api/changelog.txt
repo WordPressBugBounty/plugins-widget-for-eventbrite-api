@@ -1,3 +1,25 @@
+= 6.3.9 =
+* Fix PHP syntax errors in API key settings that could cause fatal errors
+* Add robust handling for various API key storage formats during migration
+* Fix incorrect logical operator syntax in settings validation
+
+= 6.3.8 =
+* Fix issue with long description modal title display (Pro only)
+* Improve trial mode messaging to clarify payment status and trial period
+
+= 6.3.7 =
+* Fix TypeError when migrating API key settings from pre-6.0 versions
+* Fix broken API key format conversion that could leave settings in invalid state
+
+= 6.3.6 =
+Fix issue with long_description_modal ( Pro Only )
+
+= 6.3.5 =
+* re-enable cache
+
+= 6.3.4 =
+* fix issue with  continuation when start dates specified
+
 = 6.3.3 =
 * cater for upcoming Eventbrite API change
 
