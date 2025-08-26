@@ -1,3 +1,7 @@
+= 6.3.10 =
+* Add venue_name option to short_date layout
+* Add overflow hidden to wfea-fullcalendar to stop issues in some themes
+
 = 6.3.9 =
 * Fix PHP syntax errors in API key settings that could cause fatal errors
 * Add robust handling for various API key storage formats during migration
