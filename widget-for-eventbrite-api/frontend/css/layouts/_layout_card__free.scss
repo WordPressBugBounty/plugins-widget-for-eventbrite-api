@@ -1,4 +1,9 @@
 .wfea-card {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+  
   &.card {
     // handle conflict with other card layouts
     width:100%;
@@ -8,10 +13,6 @@
   &.enfold .wfea-card-item .eaw-img {
         position: inherit!important;
   }
-  display: flex !important;
-  flex-wrap: wrap !important;
-  justify-content: center !important;
-  margin: 0 auto !important;
   .eaw-card-details {
     z-index: 999999;
     display: none;

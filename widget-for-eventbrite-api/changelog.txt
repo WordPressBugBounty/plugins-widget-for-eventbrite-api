@@ -1,3 +1,6 @@
+= 6.3.11 =
+* Fix Elementor widget thumbnail display issue where original (uncropped) images were not showing correctly on frontend
+
 = 6.3.10 =
 * Add venue_name option to short_date layout
 * Add overflow hidden to wfea-fullcalendar to stop issues in some themes

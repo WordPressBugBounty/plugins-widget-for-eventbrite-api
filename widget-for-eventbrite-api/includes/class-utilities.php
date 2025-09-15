@@ -466,12 +466,9 @@ class Utilities {
      * @api
      */
     public function get_event_logo_url() {
-        $logo = $this->get_event()->logo;
-        if ( !empty( $logo ) ) {
-            $url = $logo->url;
-        } else {
-            $url = '';
-        }
+        // logo_url already contains the correct URL (cropped or original)
+        // based on thumb_original setting processed in class-eventbrite-query.php
+        $url = $this->get_event()->logo_url;
         return apply_filters( 'wfea_event_logo_url', $url );
     }
 
