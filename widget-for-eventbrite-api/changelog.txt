@@ -1,3 +1,8 @@
+= 6.4.0 =
+* Add support for Eventbrite Collections - filter events by collection_id (Pro only)
+* Fix undefined $events variable warning in build_event_array()
+* Add automatic start_date_range_start when end date is in future
+
 = 6.3.11 =
 * Fix Elementor widget thumbnail display issue where original (uncropped) images were not showing correctly on frontend
 

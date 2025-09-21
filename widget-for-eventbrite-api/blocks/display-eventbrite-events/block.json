@@ -169,6 +169,10 @@
       "type": "string",
       "default": ""
     },
+    "collection_id": {
+      "type": "string",
+      "default": ""
+    },
     "venue_id": {
       "type": "string",
       "default": ""

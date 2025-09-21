@@ -2,7 +2,7 @@
 Contributors: fullworks
 Tags: eventbrite, widget, events, eventbrite widget, eventbrite shortcode
 Tested up to: 6.8
-Stable tag: 6.3.11
+Stable tag: 6.4.0
 Requires PHP: 7.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
@@ -174,6 +174,7 @@ If you are not using the Block Editor or Elementor, you can use use the demo sho
 Or review a full description of all options in the free and paid for plans. [Free and Premium plan detailed option here](https://fullworksplugins.com/docs/display-eventbrite-events-in-wordpress/usage/using-the-shortcode/)
 
 
+* filter events by Eventbrite collections
 * choice of pre built shortcode templates tested on popular themes such as Divi, Astra, OceanpWP, Enfold, Genesis and WP themes
 * pre-built calendar page template with grid layout
 * pre-built calendar view in month list format, and custom periods

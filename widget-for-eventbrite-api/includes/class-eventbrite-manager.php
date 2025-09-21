@@ -90,6 +90,89 @@ class Eventbrite_Manager {
     }
 
     /**
+     * Get events from a collection.
+     *
+     * @access public
+     *
+     * @param array $params Parameters to be passed during the API call.
+     * @param bool $force Force a fresh API call, ignoring any existing transient.
+     *
+     * @return object Eventbrite_Manager
+     */
+    public function get_collection_events( $params = array(), $force = false ) {
+        if ( !isset( $params['collection_id'] ) ) {
+            return new WP_Error('wfea-no-collection-id', esc_html__( 'No collection ID provided', 'widget-for-eventbrite-api' ));
+        }
+        $collection_ids = $params['collection_id'];
+        unset($params['collection_id']);
+        unset($params['start_date.range_start']);
+        unset($params['start_date.range_end']);
+        // Store the status filter if it exists (will be applied post-query)
+        $status_filter = ( isset( $params['status'] ) ? $params['status'] : null );
+        // Handle multiple collection IDs (comma-separated)
+        $collection_id_array = array_map( 'trim', explode( ',', $collection_ids ) );
+        $merged_results = (object) array(
+            'events' => array(),
+        );
+        foreach ( $collection_id_array as $collection_id ) {
+            if ( empty( $collection_id ) ) {
+                continue;
+            }
+            // Get the raw results for this collection
+            $results = $this->request(
+                'collection_events',
+                $params,
+                $collection_id,
+                $force
+            );
+            if ( is_wp_error( $results ) ) {
+                // If the collection doesn't exist (404), skip it silently
+                // Use the utility function to properly extract error message from the API response
+                $error_message = Utilities::get_instance()->get_api_error_string( $results );
+                if ( strpos( $error_message, 'The path you requested does not exist' ) !== false || strpos( $error_message, 'NOT_FOUND' ) !== false || strpos( $error_message, '404' ) !== false ) {
+                    continue;
+                    // Skip this collection and try the next one
+                }
+                // For other errors (like auth errors), return them
+                if ( count( $collection_id_array ) === 1 ) {
+                    return $results;
+                    // Single collection with non-404 error
+                }
+                // For multiple collections, skip on non-404 errors too
+                continue;
+            }
+            // If we have events, map them and merge
+            if ( !empty( $results ) && property_exists( $results, 'events' ) ) {
+                if ( !empty( $results->events ) ) {
+                    $results->events = array_map( array($this, 'map_event_keys'), $results->events );
+                    $merged_results->events = array_merge( $merged_results->events, $results->events );
+                }
+            }
+        }
+        // Apply status filter post-query if it was provided
+        if ( $status_filter && !empty( $merged_results->events ) ) {
+            $filtered_events = array();
+            foreach ( $merged_results->events as $event ) {
+                // Check if event status matches the filter
+                if ( $this->event_matches_status_filter( $event, $status_filter ) ) {
+                    $filtered_events[] = $event;
+                }
+            }
+            $merged_results->events = $filtered_events;
+        }
+        // Add pagination info for consistency
+        if ( !property_exists( $merged_results, 'pagination' ) ) {
+            $merged_results->pagination = new \stdClass();
+            $merged_results->pagination->object_count = count( $merged_results->events );
+            $merged_results->pagination->page_number = 1;
+            $merged_results->pagination->page_size = 50;
+            $merged_results->pagination->page_count = 1;
+            $merged_results->pagination->has_more_items = false;
+        }
+        return $merged_results;
+    }
+
+    /**
      * Get user-owned private and public events.
      *
      * @access public
@@ -338,6 +421,7 @@ class Eventbrite_Manager {
             'description'       => 'events/' . $object_id . '/description',
             'organizers'        => 'organizers/' . $object_id,
             'events'            => 'events/',
+            'collection_events' => 'collections/' . $object_id . '/events',
         );
         $endpoint_base = trailingslashit( self::API_BASE . $endpoint_map[$endpoint] );
         $endpoint_url = $endpoint_base;
@@ -349,6 +433,23 @@ class Eventbrite_Manager {
             $query_params['expand'] = apply_filters(
                 'eventbrite_api_expansions',
                 'event_sales_status,ticket_availability,external_ticketing,music_properties,logo,organizer,venue,ticket_classes,format,category,subcategory',
+                $endpoint,
+                $query_params,
+                $object_id
+            );
+            $endpoint_url = $this->safe_add_query_arg( $query_params, $endpoint_url );
+        } elseif ( 'collection_events' == $endpoint ) {
+            // Remove status parameter as it's not valid for collections endpoint
+            if ( isset( $query_params['status'] ) ) {
+                unset($query_params['status']);
+            }
+            // Set default time filter for collections (from API documentation)
+            if ( !isset( $query_params['time_filter'] ) ) {
+                $query_params['time_filter'] = 'current_future';
+            }
+            $query_params['expand'] = apply_filters(
+                'eventbrite_api_expansions',
+                'series,venue,event_sales_status,ticket_availability,external_ticketing,music_properties,logo,organizer,ticket_classes,format,category,subcategory',
                 $endpoint,
                 $query_params,
                 $object_id
@@ -377,7 +478,7 @@ class Eventbrite_Manager {
                     if ( !empty( $token_response->organizations ) && is_array( $token_response->organizations ) ) {
                         $items = array_merge( $items, $token_response->organizations );
                     }
-                } elseif ( 'user_owned_events' === $endpoint || 'events' === $endpoint ) {
+                } elseif ( 'user_owned_events' === $endpoint || 'events' === $endpoint || 'collection_events' === $endpoint ) {
                     if ( !empty( $token_response->events ) && is_array( $token_response->events ) ) {
                         $items = array_merge( $items, $token_response->events );
                     }
@@ -405,7 +506,7 @@ class Eventbrite_Manager {
             $response = $token_response;
         } elseif ( 'organizations' === $endpoint ) {
             $response->organizations = $items;
-        } elseif ( 'user_owned_events' === $endpoint || 'events' === $endpoint ) {
+        } elseif ( 'user_owned_events' === $endpoint || 'events' === $endpoint || 'collection_events' === $endpoint ) {
             $response->events = $items;
         }
         return apply_filters(
@@ -560,6 +661,39 @@ class Eventbrite_Manager {
             ),
         );
         return $params;
+    }
+
+    /**
+     * Check if an event matches the status filter
+     *
+     * @param object $event The event object to check
+     * @param string $status_filter The status filter to apply (all, draft, live, started, ended, completed, canceled)
+     * @return bool True if event matches the filter, false otherwise
+     */
+    protected function event_matches_status_filter( $event, $status_filter ) {
+        // If no filter or filter is 'all', include all events
+        if ( !$status_filter || $status_filter === 'all' ) {
+            return true;
+        }
+        // Get the event status
+        $event_status = ( isset( $event->status ) ? $event->status : '' );
+        // Direct status match
+        if ( $event_status === $status_filter ) {
+            return true;
+        }
+        // Handle special case for 'live' filter which should include both 'live' and 'started' events
+        if ( $status_filter === 'live' && in_array( $event_status, array('live', 'started') ) ) {
+            return true;
+        }
+        // Handle compatibility: if filter uses 'cancelled' (two l's) but API returns 'canceled' (one l)
+        if ( $status_filter === 'cancelled' && $event_status === 'canceled' ) {
+            return true;
+        }
+        // Handle compatibility: if filter uses 'canceled' (one l) but somehow event has 'cancelled' (two l's)
+        if ( $status_filter === 'canceled' && $event_status === 'cancelled' ) {
+            return true;
+        }
+        return false;
     }
 
     /**

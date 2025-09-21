@@ -145,6 +145,9 @@ class Eventbrite_Query extends WP_Query {
         if ( isset( $this->query_vars['organization_id'] ) && !empty( $this->query_vars['organization_id'] ) ) {
             $params['organization_id'] = $this->query_vars['organization_id'];
         }
+        if ( isset( $this->query_vars['collection_id'] ) && !empty( $this->query_vars['collection_id'] ) ) {
+            $params['collection_id'] = $this->query_vars['collection_id'];
+        }
         return $params;
     }
 
