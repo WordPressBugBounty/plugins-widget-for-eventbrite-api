@@ -58,6 +58,7 @@ import {Toolbar} from '@wordpress/components';
 import {Fragment} from '@wordpress/element';
 
 import '../common_scripts/attribute-filters.js';
+import './premium__only/filters.js';
 
 
 function handleClick(e) {
@@ -100,7 +101,7 @@ export default function Edit(props) {
                     <Toolbar>
                         <DropdownMenu
                             icon={layout}
-                            label={__("Select a layout", "widget-for-eventbite-api")}
+                            label={__("Select a layout", "widget-for-eventbrite-api")}
                             controls={layouts}
                             position="bottom center"
                         />
@@ -112,7 +113,7 @@ export default function Edit(props) {
                                 <Button icon="edit"
                                         onClick={onToggle}
                                         aria-expanded={isOpen}
-                                        label={__("Edit Display Options", "widget-for-eventbite-api")}
+                                        label={__("Edit Display Options", "widget-for-eventbrite-api")}
                                 />
                             )}
                             renderContent={() => {
@@ -134,7 +135,7 @@ export default function Edit(props) {
                                     icon="filter"
                                     onClick={onToggle}
                                     aria-expanded={isOpen}
-                                    label={__("Set Filters", "widget-for-eventbite-api")}
+                                    label={__("Set Filters", "widget-for-eventbrite-api")}
                                 />
                             )}
                             renderContent={() => {
@@ -153,7 +154,7 @@ export default function Edit(props) {
                                 <Button icon="yes-alt"
                                         onClick={onToggle}
                                         aria-expanded={isOpen}
-                                        label={__("Set Enabling", "widget-for-eventbite-api")}
+                                        label={__("Set Enabling", "widget-for-eventbrite-api")}
                                 />
                             )}
                             renderContent={() => {
@@ -170,7 +171,7 @@ export default function Edit(props) {
 
                         <DropdownMenu
                             icon="color-picker"
-                            label={__("Theme Colors", "widget-for-eventbite-api")}
+                            label={__("Theme Colors", "widget-for-eventbrite-api")}
                             controls={themeColors}
                             position="bottom center"
                             className="wfea-block-control__theme_colors"

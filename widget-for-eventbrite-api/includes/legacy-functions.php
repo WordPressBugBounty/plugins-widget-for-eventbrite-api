@@ -13,6 +13,7 @@ namespace {
          */
         function eventbrite_event_eb_url(  $ext = null  ) {
             return get_post()->url . $ext;
+            defined( 'ABSPATH' ) || exit;
         }
 
     }
@@ -82,7 +83,7 @@ namespace {
             // Assemble the full event time string.
             $event_time = sprintf(
                 // translators: placeholders are date time and separator
-                _x( '%1$s %3$s %2$s', 'Event date and time. %1$s = start time, %2$s = end time %3$s is a separator', 'eventbrite_api' ),
+                _x( '%1$s %3$s %2$s', 'Event date and time. %1$s = start time, %2$s = end time %3$s is a separator', 'widget-for-eventbrite-api' ),
                 esc_html( mysql2date( $combined_format, eventbrite_event_start()->local ) ),
                 esc_html( $end_time ),
                 ( empty( $end_time ) ? '' : '-' )

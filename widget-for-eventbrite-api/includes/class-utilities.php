@@ -32,6 +32,7 @@ use DateTimeZone;
 use http\Url;
 use WidgetForEventbriteAPI\Admin\Admin_Settings;
 use WP_Query;
+defined( 'ABSPATH' ) || exit;
 class Utilities {
     protected static $instance;
 
@@ -211,10 +212,12 @@ class Utilities {
             $this->error_log( 'rocket_clean_post on ' . $post_id );
         }
         if ( has_action( 'cachify_remove_post_cache' ) ) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party plugin integration hook
             do_action( 'cachify_remove_post_cache', $post_id );
             $this->error_log( 'cachify_remove_post_cache on ' . $post_id );
         }
         if ( has_action( 'litespeed_purge_post' ) ) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party plugin integration hook
             do_action( 'litespeed_purge_post', $post_id );
             $this->error_log( 'litespeed_purge_post on ' . $post_id );
         }
@@ -227,11 +230,13 @@ class Utilities {
             $this->error_log( 'WPO_Page_Cache on ' . $post_id );
         }
         if ( has_action( 'cache_enabler_clear_page_cache_by_post' ) ) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party plugin integration hook
             do_action( 'cache_enabler_clear_page_cache_by_post', $post_id );
             $this->error_log( 'cache_enabler_clear_page_cache_by_post on ' . $post_id );
         }
         if ( has_action( 'breeze_clear_all_cache' ) ) {
             // breeze seems not to have a single post clear
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party plugin integration hook
             do_action( 'breeze_clear_all_cache' );
             $this->error_log( 'breeze_clear_all_cache - breeze does not have a single post clear triggered on ' . $post_id );
         }
@@ -630,7 +635,7 @@ class Utilities {
         // Assemble the full event time string.
         $event_time = sprintf(
             // translators: placeholders explained in text
-            _x( '%1$s %3$s %2$s', 'Event date and time. %1$s = start time, %2$s = end time %3$s is a separator', 'eventbrite_api' ),
+            _x( '%1$s %3$s %2$s', 'Event date and time. %1$s = start time, %2$s = end time %3$s is a separator', 'widget-for-eventbrite-api' ),
             esc_html( mysql2date( $combined_format, $this->get_event_start()->local ) ),
             esc_html( $end_time ),
             ( empty( $end_time ) ? '' : apply_filters( 'wfea_event_time_separator', '-', $args ) )
@@ -868,10 +873,29 @@ class Utilities {
      */
     public function the_content() {
         $content = get_the_content( null, false, $this->get_event() );
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core hook
         $content = apply_filters( 'the_content', $content );
         $content = str_replace( ']]>', ']]&gt;', $content );
         $content = apply_filters( 'wfea_the_content', $content );
         return $content;
+    }
+
+    /**
+     * Get the excerpt text for display, respecting long_description setting.
+     * Returns the appropriate source text (summary or full description) for truncation.
+     * Uses the dedicated wfea_excerpt_text property rather than WordPress post properties.
+     *
+     * @return string The excerpt source text (not yet truncated)
+     * @api
+     */
+    public function get_excerpt_text() {
+        $wfea_event = $this->get_event();
+        // Use new dedicated property if available
+        if ( isset( $wfea_event->wfea_excerpt_text ) && !empty( $wfea_event->wfea_excerpt_text ) ) {
+            return $wfea_event->wfea_excerpt_text;
+        }
+        // Fallback for backward compatibility
+        return ( isset( $wfea_event->summary ) ? $wfea_event->summary : '' );
     }
 
     /**
@@ -920,8 +944,25 @@ class Utilities {
             $price_display,
             $prices->minimum_ticket_price->major_value,
             $prices->maximum_ticket_price->major_value,
-            $prices->minimum_ticket_price->currency
+            $prices->minimum_ticket_price->currency,
+            $this->get_event()
         ) );
+    }
+
+    /**
+     * Helper function to check if user has legacy Gold plan (plan_id 7700)
+     * Gold plan was deleted but existing users should retain access
+     *
+     * @return bool
+     */
+    public static function is_legacy_gold_plan() {
+        /** @var \Freemius $wfea_fs Freemius global object. */
+        global $wfea_fs;
+        if ( !isset( $wfea_fs ) ) {
+            return false;
+        }
+        $license = $wfea_fs->_get_license();
+        return $license && isset( $license->plan_id ) && in_array( $license->plan_id, array(7700, 14687) );
     }
 
 }

@@ -1,13 +1,13 @@
 <?php return array(
     'root' => array(
         'name' => 'fullworks/widget-for-eventbrite-api',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'fb5fbb9e75a3a763127dd063f3c587ae95ad7f1b',
+        'pretty_version' => '6.5.7',
+        'version' => '6.5.7.0',
+        'reference' => '68c0ccba6be41d8f18f7cc0ebb931b1a6eb2bd64',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
         'alanef/fullworks-template-loader-lib' => array(
@@ -51,9 +51,9 @@
             'dev_requirement' => false,
         ),
         'freemius/wordpress-sdk' => array(
-            'pretty_version' => '2.12.2',
-            'version' => '2.12.2.0',
-            'reference' => '241fbfc91151f85d8ebeb75343caf29bda1d3208',
+            'pretty_version' => '2.13.0',
+            'version' => '2.13.0.0',
+            'reference' => '3cbe98b5bd0b0fb5ca4df97b8088592737ea4375',
             'type' => 'library',
             'install_path' => __DIR__ . '/../freemius/wordpress-sdk',
             'aliases' => array(),
@@ -69,9 +69,9 @@
             'dev_requirement' => false,
         ),
         'fullworks/widget-for-eventbrite-api' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'fb5fbb9e75a3a763127dd063f3c587ae95ad7f1b',
+            'pretty_version' => '6.5.7',
+            'version' => '6.5.7.0',
+            'reference' => '68c0ccba6be41d8f18f7cc0ebb931b1a6eb2bd64',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),

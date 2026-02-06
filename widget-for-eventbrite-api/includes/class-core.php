@@ -18,6 +18,7 @@ use WidgetForEventbriteAPI\FrontEnd\FrontEnd;
 use WidgetForEventbriteAPI\Admin\Admin_Settings;
 use WidgetForEventbriteAPI\Admin\Admin_Setup_Wizard;
 use WidgetForEventbriteAPI\Shortcodes\Shortcodes;
+defined( 'ABSPATH' ) || exit;
 /**
  * Class Core
  *
@@ -117,13 +118,12 @@ class Core {
     /**
      * Define the locale for this plugin for internationalization.
      *
-     * Uses the WidgetForEventbriteAPIi18n class in order to set the domain and to register the hook
-     * with WordPress.
+     * Since WordPress 4.6, translations are automatically loaded from WordPress.org.
+     * No need to manually call load_plugin_textdomain() for plugins hosted on WordPress.org.
      */
     private function set_locale() {
-        add_action( 'init', function () {
-            load_plugin_textdomain( 'widget-for-eventbrite-api', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
-        } );
+        // WordPress automatically loads translations from wordpress.org since WP 4.6
+        // No action needed for plugins hosted on wordpress.org
     }
 
     /**
@@ -170,19 +170,12 @@ class Core {
         add_action( 'wp_ajax_wfea_dismiss_notice', array($plugin_admin, 'wfea_dismiss_notice') );
         add_filter( 'site_status_tests', array($plugin_admin, 'site_status_tests') );
         add_action( 'wp_ajax_update_widget_content', array($widget_helpers, 'update_elementor_widget_content') );
-        add_action( 'wp_ajax_nopriv_update_widget_content', array($widget_helpers, 'update_elementor_widget_content') );
         add_action( 'wp_ajax_fetch_organizations_for_key', array($widget_helpers, 'get_organizations_for_key') );
-        add_action( 'wp_ajax_nopriv_fetch_organizations_for_key', array($widget_helpers, 'get_organizations_for_key') );
         add_action( 'wp_ajax_fetch_events_for_key', array($widget_helpers, 'send_events_for_key') );
-        add_action( 'wp_ajax_nopriv_fetch_events_for_key', array($widget_helpers, 'send_events_for_key') );
         add_action( 'wp_ajax_fetch_organizers_for_key', array($widget_helpers, 'send_organizers_for_key') );
-        add_action( 'wp_ajax_nopriv_fetch_organizers_for_key', array($widget_helpers, 'send_organizers_for_key') );
         add_action( 'wp_ajax_fetch_venues_options', array($widget_helpers, 'send_venues_options') );
-        add_action( 'wp_ajax_nopriv_fetch_venues_options', array($widget_helpers, 'send_venues_options') );
         add_action( 'wp_ajax_fetch_api_key_options', array($widget_helpers, 'send_api_key_options') );
-        add_action( 'wp_ajax_nopriv_fetch_api_key_options', array($widget_helpers, 'send_api_key_options') );
         add_action( 'wp_ajax_validate_date', array($widget_helpers, 'validate_date') );
-        add_action( 'wp_ajax_nopriv_validate_date', array($widget_helpers, 'validate_date') );
         add_action( 'init', function () {
             new \WidgetForEventbriteAPI\Includes\Widgets();
         } );
@@ -232,6 +225,13 @@ class Core {
         );
         add_action( 'wp_enqueue_scripts', array($plugin_public, 'enqueue_styles') );
         add_action( 'wp_enqueue_scripts', array($plugin_public, 'enqueue_scripts') );
+        // Prevent JS optimizers from deferring calendar scripts (runs late to override optimizer filters).
+        add_filter(
+            'script_loader_tag',
+            array($plugin_public, 'prevent_defer_on_calendar_scripts'),
+            999,
+            3
+        );
         add_action( 'wp_head', array($plugin_public, 'wfea_generate_meta_for_social_media'), -1 );
     }
 

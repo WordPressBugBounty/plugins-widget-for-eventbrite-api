@@ -5,6 +5,7 @@ namespace WidgetForEventbriteAPI\Blocks;
 use WidgetForEventbriteAPI\FrontEnd\FrontEnd;
 use WidgetForEventbriteAPI\Includes\Utilities;
 use WidgetForEventbriteAPI\Includes\Widgets\Elementor\Eventbrite_Widget_Elementor_Helpers;
+defined( 'ABSPATH' ) || exit;
 class Blocks {
     private $plugin_name;
 
@@ -116,7 +117,7 @@ class Blocks {
             'current_plan'         => $this->freemius->get_plan_name(),
             'can_use_premium_code' => $this->freemius->can_use_premium_code(),
             'is_plan_silver'       => $this->freemius->is_plan( 'silver' ),
-            'is_plan_gold'         => $this->freemius->is_plan( 'gold' ),
+            'is_plan_gold'         => Utilities::is_legacy_gold_plan(),
             'is_plan_platinum'     => $this->freemius->is_plan( 'platinum' ),
         );
         wp_localize_script( 'widget-for-eventbrite-api-display-eventbrite-events-script', 'wfea_freemius', $data );

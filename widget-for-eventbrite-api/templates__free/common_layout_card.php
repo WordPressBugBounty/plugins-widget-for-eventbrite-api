@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 /**
  * Front end display of shortcode loop
  * can be overridden in child themes / themes or in wp-content/widget-for-eventbrite-api folder if you don't have a child theme and you don't want to lose changes due to themes updates
@@ -16,8 +17,8 @@ $data->template_loader->get_template_part( 'paginate_links_top' . $data->event->
 		<?php
 		$data->args['readmore'] = false;
 		if ( ( $data->events->post_count ?? 0 ) > 0  ) {
-			foreach ( $data->events->posts as $event ) {
-				$data->utilities->set_event( $event );
+			foreach ( $data->events->posts as $wfea_event ) {
+				$data->utilities->set_event( $wfea_event );
 				$data->event->booknow = $data->utilities->get_booknow_link( $data->args );
 				$data->event->cta     = $data->utilities->get_cta( $data->args );
 				$data->event->classes = $data->utilities->get_event_classes( $data->args );

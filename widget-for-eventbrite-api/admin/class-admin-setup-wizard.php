@@ -1,8 +1,7 @@
 <?php
-
-
 namespace WidgetForEventbriteAPI\Admin;
 
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class Settings
@@ -186,7 +185,7 @@ class Admin_Setup_Wizard {
 
                             <ol>
                                 <li>
-									<?php esc_html_e( 'Get your API Key:', 'widget-for-eventbite-api' ); ?>
+									<?php esc_html_e( 'Get your API Key:', 'widget-for-eventbrite-api' ); ?>
 									<?php esc_html_e( 'Vist this page to get your private token', 'widget-for-eventbrite-api' ) ?>
                                     <a class="wfea-link"
                                        href="https://www.eventbrite.com/platform/api-keys" target="_blank">
@@ -198,7 +197,7 @@ class Admin_Setup_Wizard {
                                     </a>
                                 </li>
                                 <li>
-									<?php esc_html_e( 'Paste or Input the API key into the box below', 'widget-for-eventbite-api' ); ?>
+									<?php esc_html_e( 'Paste or Input the API key into the box below', 'widget-for-eventbrite-api' ); ?>
                                 </li>
                             </ol>
                             <div class="api-key">

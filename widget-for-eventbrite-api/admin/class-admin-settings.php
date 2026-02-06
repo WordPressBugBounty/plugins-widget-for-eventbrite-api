@@ -9,6 +9,7 @@
 namespace WidgetForEventbriteAPI\Admin;
 
 use WidgetForEventbriteAPI\Includes\Eventbrite_Manager;
+defined( 'ABSPATH' ) || exit;
 class Admin_Settings extends Admin_Pages {
     protected $settings_page;
 
@@ -36,16 +37,18 @@ class Admin_Settings extends Admin_Pages {
         switch ( $option ) {
             case 'widget-for-eventbrite-api-settings':
                 return array(
-                    'cache_clear'    => 0,
-                    'cache_duration' => 86400,
-                    'plugin-css'     => 1,
-                    'background_api' => 0,
-                    'key'            => array(array(
+                    'cache_clear'     => 0,
+                    'cache_duration'  => 86400,
+                    'plugin-css'      => 1,
+                    'background_api'  => 0,
+                    'key'             => array(array(
                         'key'   => '',
                         'label' => 'API Key 1',
                     )),
-                    'webhook'        => '',
-                    'account_type'   => 'standard',
+                    'webhook'         => '',
+                    'webhook_dir'     => '',
+                    'webhook_version' => '',
+                    'account_type'    => 'standard',
                 );
             default:
                 return false;
@@ -178,6 +181,7 @@ class Admin_Settings extends Admin_Pages {
             return false;
         }
         if ( has_filter( 'use_block_editor_for_post_type' ) ) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core hook
             return apply_filters( 'use_block_editor_for_post_type', true, null );
         }
         return true;
@@ -399,7 +403,6 @@ class Admin_Settings extends Admin_Pages {
                 </td>
             </tr>
 
-
             </tbody>
         </table>
 		<?php 
@@ -571,7 +574,7 @@ Additional shortcode options are available in the  paid for version<br><br>
         checked( '1', $options['plugin-css'] );
         ?>>
 						<?php 
-        esc_html_e( 'Enable this option to output the default CSS. Disable it if you plan to create your own CSS in a child theme or customizer additional CSS.', 'widget_for_eventbrite_api' );
+        esc_html_e( 'Enable this option to output the default CSS. Disable it if you plan to create your own CSS in a child theme or customizer additional CSS.', 'widget-for-eventbrite-api' );
         ?>
                     </label>
 					<?php 
@@ -609,7 +612,7 @@ Additional shortcode options are available in the  paid for version<br><br>
                 <td colspan="100">
                     <p>
 						<?php 
-        esc_html_e( '[Optional] you can set up WebHooks to notify this website that an event has changed, this will speed up changes appearing', 'widget_for_eventbrite_api' );
+        esc_html_e( '[Optional] you can set up WebHooks to notify this website that an event has changed, this will speed up changes appearing', 'widget-for-eventbrite-api' );
         ?>
                     </p>
                     <p>
@@ -669,6 +672,14 @@ Additional shortcode options are available in the  paid for version<br><br>
             return $settings;
         }
         $options = get_option( 'widget-for-eventbrite-api-settings' );
+        // Preserve webhook_dir from existing options (set via AJAX, not in form)
+        if ( !empty( $options['webhook_dir'] ) && !isset( $settings['webhook_dir'] ) ) {
+            $settings['webhook_dir'] = $options['webhook_dir'];
+        }
+        // Preserve webhook_version from existing options (set via upgrade, not in form)
+        if ( !empty( $options['webhook_version'] ) && !isset( $settings['webhook_version'] ) ) {
+            $settings['webhook_version'] = $options['webhook_version'];
+        }
         if ( !isset( $settings['plugin-css'] ) ) {
             $settings['plugin-css'] = 0;
             // always set checkboxes of they dont exist
@@ -695,7 +706,7 @@ Additional shortcode options are available in the  paid for version<br><br>
                 add_settings_error(
                     'wfea-api-key',
                     'wfea-api-key',
-                    esc_html__( 'An API Private Token is required', 'fullworks-security' ),
+                    esc_html__( 'An API Private Token is required', 'widget-for-eventbrite-api' ),
                     'error'
                 );
                 $settings['key'] = $options['key'];
@@ -755,7 +766,7 @@ Additional shortcode options are available in the  paid for version<br><br>
                             'wfea-api-key-fail',
                             sprintf( 
                                 // translators:  placeholder is an API key
-                                esc_html__( 'Something failed with the key: %1$s', 'fullworks-security' ),
+                                esc_html__( 'Something failed with the key: %1$s', 'widget-for-eventbrite-api' ),
                                 $msg
                              ),
                             'error'
@@ -767,7 +778,7 @@ Additional shortcode options are available in the  paid for version<br><br>
                         if ( !is_string( $msg ) ) {
                             $msg = sprintf( 
                                 // translators:  placeholder is an API key
-                                esc_html__( 'A very unexpected error with the API call to check the key happened: %1$s', 'fullworks-security' ),
+                                esc_html__( 'A very unexpected error with the API call to check the key happened: %1$s', 'widget-for-eventbrite-api' ),
                                 print_r( $msg, true )
                              );
                         }
@@ -776,7 +787,7 @@ Additional shortcode options are available in the  paid for version<br><br>
                             'wfea-api-key-fail',
                             sprintf( 
                                 // translators:  placeholder is an API key
-                                esc_html__( 'Something failed with the key: %1$s', 'fullworks-security' ),
+                                esc_html__( 'Something failed with the key: %1$s', 'widget-for-eventbrite-api' ),
                                 $msg
                              ),
                             'error'
