@@ -40,20 +40,6 @@ class Eventbrite_Query extends WP_Query {
         $this->query( $query );
     }
 
-    public function get_merge_event_tags( $event_ids, $token ) {
-        $results = Eventbrite_Manager::$instance->get_destination_events__premium_only( $event_ids, $token );
-        if ( !is_wp_error( $results ) ) {
-            // match ID in $this->api_results->events to ID in $results->events
-            foreach ( $results->events as $destination_event ) {
-                foreach ( $this->api_results->events as $key => $event ) {
-                    if ( $event->ID == $destination_event->id ) {
-                        $this->api_results->events[$key]->tags = $destination_event->tags;
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * Retrieve the posts based on query variables.
      *
@@ -207,7 +193,7 @@ class Eventbrite_Query extends WP_Query {
                 // Use full description (HTML stripped) with breaks between div elements
                 $wfea_full_text = ( isset( $wfea_event->long_description ) ? $wfea_event->long_description : $wfea_event->post_content );
                 // Add space after block element boundaries before stripping tags
-                $wfea_full_text = str_replace( array('</div>', '</p>'), array('</div> ', '</p> '), $wfea_full_text );
+                $wfea_full_text = str_replace( array('</div>', '</p>', '</li>'), array('</div> ', '</p> ', '</li> '), $wfea_full_text );
                 $wfea_full_text = wp_strip_all_tags( $wfea_full_text );
                 $this->api_results->events[$wfea_key]->wfea_excerpt_text = $wfea_full_text;
             } else {
